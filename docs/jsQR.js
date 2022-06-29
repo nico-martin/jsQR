@@ -926,6 +926,10 @@ function decodeByte(stream, size) {
     }
     catch (_a) {
         // failed to decode
+        if (characterCountSize === 16) {
+            text += decodeURIComponent(new TextDecoder("iso-8859-1").decode(Uint8Array.from(bytes)));
+        }
+        // => ToDo: Full ECI case switch, https://en.wikipedia.org/wiki/Extended_Channel_Interpretation
     }
     return { bytes: bytes, text: text };
 }
